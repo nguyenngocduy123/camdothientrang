@@ -18,7 +18,7 @@ namespace CamDoAnhTu.Controllers
             return View();
         }
 
-        public ActionResult History(string id)
+        public ActionResult History(int id)
         {
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {

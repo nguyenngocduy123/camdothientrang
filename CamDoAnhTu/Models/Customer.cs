@@ -18,6 +18,7 @@ namespace CamDoAnhTu.Models
         public Customer()
         {
             this.Loans = new HashSet<Loan>();
+            this.histories = new HashSet<history>();
         }
     
         public string Name { get; set; }
@@ -45,5 +46,7 @@ namespace CamDoAnhTu.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Loan> Loans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<history> histories { get; set; }
     }
 }

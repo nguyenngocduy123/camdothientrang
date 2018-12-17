@@ -27,6 +27,7 @@
     <Property Name="nodung" Type="Boolean" />
     <Property Name="tentaisan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="loaigiayto" Type="Int32" />
+    <NavigationProperty Name="histories" Relationship="cama18da_camdoducthinhModel.Customerhistory" FromRole="Customer" ToRole="history" />
   </EntityType>
   <EntityType Name="Loan">
     <Key>
@@ -56,6 +57,11 @@
       <End Role="Customer" EntitySet="Customers" />
       <End Role="Loan" EntitySet="Loans" />
     </AssociationSet>
+    <EntitySet Name="histories" EntityType="cama18da_camdoducthinhModel.history" />
+    <AssociationSet Name="Customerhistory" Association="cama18da_camdoducthinhModel.Customerhistory">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="history" EntitySet="histories" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="CustomerLoan">
     <End Type="cama18da_camdoducthinhModel.Customer" Role="Customer" Multiplicity="1" />
@@ -66,6 +72,32 @@
       </Principal>
       <Dependent Role="Loan">
         <PropertyRef Name="IDCus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="history">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="Ngaydongtien" Type="DateTime" Precision="3" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="loanid" Type="Int32" />
+    <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="cama18da_camdoducthinhModel.Customerhistory" FromRole="history" ToRole="Customer" />
+  </EntityType>
+  <Association Name="Customerhistory">
+    <End Type="cama18da_camdoducthinhModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="cama18da_camdoducthinhModel.history" Role="history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="history">
+        <PropertyRef Name="CustomerCode" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

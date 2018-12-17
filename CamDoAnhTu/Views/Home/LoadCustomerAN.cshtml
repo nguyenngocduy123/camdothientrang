@@ -619,6 +619,9 @@ else
                                                 <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
+                                                <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
+                                                    <i class="fa fa-history"></i>
+                                                </a>
                                                 @if (us.Permission == 1)
                                                 {
                                                     <a class="btn btn-danger btn-xs" href="javascript:" onclick="confirm('Bạn có thật sự muốn xóa?') ? deleteCus('@p.Code') : null"><i class="fa fa-remove"></i></a>
@@ -742,6 +745,9 @@ else
                                                 <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
+                                                <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
+                                                    <i class="fa fa-history"></i>
+                                                </a>
                                                 @if (us.Permission == 1)
                                                 {
                                                     <a class="btn btn-danger btn-xs" href="javascript:" onclick="confirm('Bạn có thật sự muốn xóa?') ? deleteCus('@p.Code') : null"><i class="fa fa-remove"></i></a>
@@ -864,6 +870,9 @@ else
                                             <td style="width: 100px">
                                                 <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
+                                                </a>
+                                                <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
+                                                    <i class="fa fa-history"></i>
                                                 </a>
                                                 @if (us.Permission == 1)
                                                 {

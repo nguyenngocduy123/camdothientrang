@@ -15,10 +15,13 @@ namespace CamDoAnhTu.Models
     public partial class history
     {
         public int ID { get; set; }
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public Nullable<System.DateTime> Ngaydongtien { get; set; }
         public string Detail { get; set; }
         public Nullable<decimal> price { get; set; }
+        public Nullable<int> status { get; set; }
+        public Nullable<int> loanid { get; set; }
+        public string CustomerCode { get; set; }
     
         public virtual Customer Customer { get; set; }
     }

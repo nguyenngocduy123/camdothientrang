@@ -34,9 +34,13 @@
     @RenderSection("css", required: false)
 </head>
 <body>
+    <a class="btn btn-success" href="@Url.Action("Index","Home")" role="button">
+        <i class="fa fa-home"></i>Trang chính
+    </a>
+
     @RenderBody()
-<!-- jQuery -->
-    
+    <!-- jQuery -->
+
     <script src="/Assets/Admin/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/Assets/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
