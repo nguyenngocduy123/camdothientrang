@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "e:\\CamdoThienTrang\\CamDoAnhTu\\CamDoAnhTu.csproj",
+  "TargetFramework": "v4.5.1",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

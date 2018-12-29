@@ -5244,13 +5244,13 @@ namespace CamDoAnhTu.Controllers
                     {
                         csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                         t = 1;
-
+                        WriteHistory(csCustomer, 0, loanid);
                     }
                     else
                     {
                         csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                         t = 0;
-
+                        WriteHistory(csCustomer, 0, loanid);
                     }
 
                     ctx.SaveChanges();
@@ -5268,7 +5268,7 @@ namespace CamDoAnhTu.Controllers
                         ctx.Configuration.ValidateOnSaveEnabled = false;
                         Customer csCustomer = new Customer();
                         item = ctx.Loans.Where(p => p.ID == loanid && p.IDCus == idcus).FirstOrDefault();
-
+                        timetemp = item.Date.ToShortDateString();
                         item.Status = item.Status + 1;
 
                         if (item.Status >= 2)
@@ -5280,15 +5280,16 @@ namespace CamDoAnhTu.Controllers
                         {
                             csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                             t = 1;
-
+                            WriteHistory(csCustomer, 0, loanid);
                         }
                         else
                         {
                             csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                             t = 0;
-
+                            WriteHistory(csCustomer, 0, loanid);
                         }
 
+                        loanid++;
                         ctx.SaveChanges();
                     }
                 }
@@ -6350,6 +6351,8 @@ namespace CamDoAnhTu.Controllers
             StringBuilder str = new StringBuilder();
             int type = 0;
 
+            
+
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
 
@@ -6368,7 +6371,7 @@ namespace CamDoAnhTu.Controllers
                             hs.CustomerId = p.ID;
                             hs.CustomerCode = p.Code;
                             hs.Detail = str.ToString();
-                            hs.Ngaydongtien = DateTime.Now;
+                            hs.Ngaydongtien = DateTime.Now ;
                             hs.price = money == 0 ? p.Price : money;
                             hs.status = type;
                             hs.loanid = loanid;
