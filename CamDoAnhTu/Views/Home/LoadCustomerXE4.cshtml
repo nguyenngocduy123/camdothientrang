@@ -11,7 +11,7 @@
 @{
 
     int count = 0;
-    int type = (int)ViewBag.type;
+
     User us = new User();
 
     HttpCookie reqCookies = Request.Cookies["userInfo"];
@@ -25,6 +25,7 @@
     List<Loan>
         t = (List<Loan>
             )ViewData["Loans"];
+
 
 }
 @{
@@ -351,28 +352,28 @@ listItems = new List<SelectListItem>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductsModal"><i class="fa fa-plus"></i>  Thêm</button>*@
-                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home", new {type = type })" role="button">
-                        <i class="fa fa-home"></i>Trang chủ
+                    <a class="btn btn-success" href="@Url.Action("LoadCustomerXE2","Home")" role="button">
+                        <i class="fa fa-home"></i>Trang đứng
                     </a>
-
+                    
                     <a class="btn btn-success" href="@Url.Action("Refresh","Home")" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
                         <i class="fa fa-refresh"></i>Cập nhập
                     </a>
-
+                    
                     @if (us != null && (us.Permission == 1 || us.Permission == 2))
                     {
-                        <a href="@Url.Action("AddCustomer", "Home", new {type = type})" class="btn btn-default">
+                        <a href="@Url.Action("AddCustomerXE2", "Home" )" class="btn btn-default">
                             <i class="fa fa-plus"></i>&nbsp;Thêm khách hàng
                         </a>
                     }
-                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangEvenXE2", "Home" )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày chẵn
                     </a>
-                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangOddXE2", "Home" )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày lẻ
                     </a>
                 </div>
-                <form class="navbar-form navbar-left" role="search" action="/Home/Search" style="height:50px">
+                <form class="navbar-form navbar-left" role="search" action="/Home/SearchXE2" style="height:50px">
                     <div class="form-group">
                         <label for="txtName" class="col-sm-2 control-label">Mã số:</label>
                         <div class="col-sm-2">
@@ -440,7 +441,7 @@ else
             <div class="panel panel-default">
                 <div class="panel-heading">
                     @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductsModal"><i class="fa fa-plus"></i>  Thêm</button>*@
-                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home",new { type = type })" role="button">
+                    <a class="btn btn-success" href="@Url.Action("LoadCustomerXE2","Home",new { type = -1 })" role="button">
                         <i class="fa fa-home"></i>Trang góp
                     </a>
 
@@ -450,18 +451,18 @@ else
 
                     @if (us != null && (us.Permission == 1 || us.Permission == 2))
                     {
-                        <a href="@Url.Action("AddCustomer", "Home", new {type = type})" class="btn btn-default">
+                        <a href="@Url.Action("AddCustomerXE2", "Home" )" class="btn btn-default">
                             <i class="fa fa-plus"></i>&nbsp;Thêm khách hàng
                         </a>
                     }
-                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangEvenXE2", "Home" )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày chẵn
                     </a>
-                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangOddXE2", "Home" )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày lẻ
                     </a>
                 </div>
-                <form class="form-horizontal" role="search" action="/Home/Search" style="height:50px; margin-bottom:50px;margin-top:10px">
+                <form class="form-horizontal" role="search" action="/Home/SearchXE2" style="height:50px; margin-bottom:50px;margin-top:10px">
                     <div class="form-group">
                         <label for="txtName" class="col-sm-2 control-label">Tên khách hàng:</label>
                         <div class="col-sm-2">
@@ -633,14 +634,14 @@ else
                                                 <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
-                                                <a href="@Url.Action("History", "History", new {id = @p.ID, type})" role="button" title="Lịch sử">
+                                                <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
                                                     <i class="fa fa-history"></i>
                                                 </a>
                                                 @if (us.Permission == 1)
                                                 {
                                                     <a class="btn btn-danger btn-xs" href="javascript:" onclick="confirm('Bạn có thật sự muốn xóa?') ? deleteCus('@p.Code') : null"><i class="fa fa-remove"></i></a>
 
-                                                    <a class="btn btn-primary btn-xs" href="@Url.Action("Update", "Home", new {id = @p.Code, type = type})" role="button" title="Chỉnh sửa">
+                                                    <a class="btn btn-primary btn-xs" href="@Url.Action("UpdateXE2", "Home", new {id = @p.Code})" role="button" title="Chỉnh sửa">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" role="button" title="Kết thúc dây nợ" onclick="return effect(@k.ID);">
@@ -731,14 +732,14 @@ else
                                                     <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                         <i class="glyphicon glyphicon-eye-open"></i>
                                                     </a>
-                                                    <a href="@Url.Action("History", "History", new {id = @p.ID, type})" role="button" title="Lịch sử">
+                                                    <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
                                                         <i class="fa fa-history"></i>
                                                     </a>
                                                     @if (us.Permission == 1)
                                                     {
                                                         <a class="btn btn-danger btn-xs" href="javascript:" onclick="confirm('Bạn có thật sự muốn xóa?') ? deleteCus('@p.Code') : null"><i class="fa fa-remove"></i></a>
 
-                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("Update", "Home", new {id = @p.Code, type = type})" role="button" title="Chỉnh sửa">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("UpdateXE2", "Home", new {id = @p.Code})" role="button" title="Chỉnh sửa">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <a class="btn btn-primary btn-xs" role="button" title="Kết thúc dây nợ" onclick="return effect(@k.ID);">
@@ -824,14 +825,14 @@ else
                                                     <a href="@Url.Action("Detail", "Home", new {id = @p.Code})" role="button" title="Chi tiết">
                                                         <i class="glyphicon glyphicon-eye-open"></i>
                                                     </a>
-                                                    <a href="@Url.Action("History", "History", new {id = @p.ID, type})" role="button" title="Lịch sử">
+                                                    <a href="@Url.Action("History", "History", new {id = @p.ID})" role="button" title="Lịch sử">
                                                         <i class="fa fa-history"></i>
                                                     </a>
                                                     @if (us.Permission == 1)
                                                     {
                                                         <a class="btn btn-danger btn-xs" href="javascript:" onclick="confirm('Bạn có thật sự muốn xóa?') ? deleteCus('@p.Code') : null"><i class="fa fa-remove"></i></a>
 
-                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("Update", "Home", new {id = @p.Code, type = type})" role="button" title="Chỉnh sửa">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("UpdateXE2", "Home", new {id = @p.Code})" role="button" title="Chỉnh sửa">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <a class="btn btn-primary btn-xs" role="button" title="Kết thúc dây nợ" onclick="return effect(@k.ID);">
@@ -849,18 +850,18 @@ else
                         <nav style="margin-top:20px; margin-left:50px">
                             <ul class="pagination">
                                 <li class="@(ViewBag.CurPage==1 ? " disabled": "" )">
-                                    <a href="@Url.Action("LoadCustomer", "Home" , new { page=ViewBag.CurPage - 1,type = ViewBag.type  })" aria-label="Pre aria-label=" previous">
+                                    <a href="@Url.Action("LoadCustomerXE2", "Home" , new { page=ViewBag.CurPage - 1 })" aria-label="Pre aria-label=" previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 @for (int i = 1; i <= ViewBag.PageCount; i++)
                                 {
                                     <li class="@(ViewBag.CurPage==i ? " active": "" )">
-                                        <a href="@Url.Action("LoadCustomer", "Home" , new {page=i,type = ViewBag.type  })">@i</a>
+                                        <a href="@Url.Action("LoadCustomerXE2", "Home" , new {page=i })">@i</a>
                                     </li>
                                 }
                                 <li class="@(ViewBag.CurPage==ViewBag.PageCount ? " disabled": "" )">
-                                    <a href="@Url.Action("LoadCustomer", "Home" , new { page=ViewBag.CurPage + 1,type = ViewBag.type  })" aria-label="Nex aria-label=" next">
+                                    <a href="@Url.Action("LoadCustomerXE2", "Home" , new { page=ViewBag.CurPage + 1 })" aria-label="Nex aria-label=" next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

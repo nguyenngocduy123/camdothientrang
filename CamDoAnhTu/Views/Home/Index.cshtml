@@ -22,13 +22,21 @@
 }
 
 <h2>Cầm đồ Thiên Trang</h2>
-
-<div id="plan-info">
-
-    @Html.Action("AN", "Home")
-
-    @Html.Action("AX", "Home")
-    @Html.Action("XE1", "Home")
-
-    @Html.Action("XE2", "Home")
-</div>
+@if (us.id_cuahang == 1)
+{
+    <div id="plan-info">
+        @Html.Action("Management", "Home", new { type = 5 })
+        @Html.Action("Management", "Home", new { type = 8 })
+        @Html.Action("XE1", "XE1", new { type = 13 })
+        @Html.Action("XE1", "XE1", new { type = 12 })
+    </div>
+}
+else if(us.id_cuahang == 2)
+{
+    <div id="plan-info">
+        @Html.Action("Management", "Home", new { type = 4 })
+        @Html.Action("Management", "Home", new { type = 2 })
+        @Html.Action("XE1", "XE1", new { type = 14 })
+        @Html.Action("XE1", "XE1", new { type = 15 })
+    </div>
+}
