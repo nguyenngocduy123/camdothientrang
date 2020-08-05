@@ -1,15 +1,33 @@
-﻿@{
+﻿@using CamDoAnhTu.Models
+
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    User us = new User();
+    //us = (User)Session["CurUser"];
+    HttpCookie reqCookies = Request.Cookies["userInfo"];
+    if (reqCookies != null)
+    {
+        us.UserName = reqCookies["username"].ToString();
+        us.PassWord = reqCookies["password"].ToString();
+        us.Permission = Int32.Parse(reqCookies["permisson"].ToString());
+        us.id_cuahang = Int32.Parse(reqCookies["id_cuahang"].ToString());
+    }
+
 }
 
 <h2>Cầm đồ Thiên Trang</h2>
 
 <div id="plan-info">
+
     @Html.Action("AN", "Home")
 
     @Html.Action("AX", "Home")
-
     @Html.Action("XE1", "Home")
 
     @Html.Action("XE2", "Home")

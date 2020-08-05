@@ -34,6 +34,7 @@ namespace CamDoAnhTu.Controllers
                     userInfo["password"] = us.PassWord;
                     userInfo["permisson"] = us.Permission.ToString();
                     userInfo.Expires = DateTime.Now.AddDays(7);
+                    userInfo["id_cuahang"] = us.id_cuahang.Value.ToString();
                     Response.Cookies.Add(userInfo);
                     if (model.Remember)
                     {
