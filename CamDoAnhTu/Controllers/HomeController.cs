@@ -1627,7 +1627,8 @@ namespace CamDoAnhTu.Controllers
 
         #region Search
 
-        public ActionResult Search(string Code, string Name, string Phone, string Address, int? Noxau, int? hetno, int page = 1)
+        public ActionResult Search(string Code, string Name, int type,string Phone, string Address, int? Noxau, int? hetno,
+            int page = 1)
         {
             int pageSz = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
             List<Loan> lstLoan = new List<Loan>();
@@ -1635,7 +1636,7 @@ namespace CamDoAnhTu.Controllers
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 ctx.Configuration.ValidateOnSaveEnabled = false;
-                var list = ctx.Customers.Where(p => p.type == 1).ToList();
+                var list = ctx.Customers.Where(p => p.type == type).ToList();
                 List<Customer> lsttrave = new List<Customer>();
 
                 if (!string.IsNullOrEmpty(Code))
@@ -1700,6 +1701,7 @@ namespace CamDoAnhTu.Controllers
                 ViewBag.Noxau = Noxau;
                 ViewBag.hetno = hetno;
                 ViewBag.Address = Address;
+                ViewBag.type = type;
 
                 foreach (Customer cs in lsttrave1)
                 {
@@ -2896,7 +2898,7 @@ namespace CamDoAnhTu.Controllers
             }
         }
 
-        public ActionResult SearchXE1(string Code, string Name, string Phone, string Address, int? Noxau, int? hetno, int page = 1)
+        public ActionResult SearchXE1(string Code, string Name, string Phone, int type, string Address, int? Noxau, int? hetno, int page = 1)
         {
             int pageSz = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
             List<Loan> lstLoan = new List<Loan>();
@@ -2904,7 +2906,7 @@ namespace CamDoAnhTu.Controllers
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 ctx.Configuration.ValidateOnSaveEnabled = false;
-                var list = ctx.Customers.Where(p => p.type == 13).ToList();
+                var list = ctx.Customers.Where(p => p.type == type).ToList();
                 List<Customer> lsttrave = new List<Customer>();
 
                 if (!string.IsNullOrEmpty(Code))
@@ -2965,6 +2967,7 @@ namespace CamDoAnhTu.Controllers
                 ViewBag.Noxau = Noxau;
                 ViewBag.hetno = hetno;
                 ViewBag.Address = Address;
+                ViewBag.type = type;
 
                 foreach (Customer cs in lsttrave1)
                 {
@@ -3120,229 +3123,6 @@ namespace CamDoAnhTu.Controllers
             }
         }
 
-        public ActionResult SearchXE1(string Code, string Name, string Phone, string Address, int? Noxau, int? hetno, int page = 1)
-        {
-            int pageSz = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
-            List<Loan> lstLoan = new List<Loan>();
-
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                ctx.Configuration.ValidateOnSaveEnabled = false;
-                var list = ctx.Customers.Where(p => p.type == 13).ToList();
-                List<Customer> lsttrave = new List<Customer>();
-
-                if (!string.IsNullOrEmpty(Code))
-                {
-                    lsttrave = list.Where(p => p.Code == Code).ToList();
-                }
-                if (!string.IsNullOrEmpty(Name))
-                {
-                    lsttrave = list.Where(p => p.Name.Contains(Name)).ToList();
-                }
-                if (!string.IsNullOrEmpty(Phone))
-                {
-                    lsttrave = list.Where(p => p.Phone.Contains(Phone)).ToList();
-                }
-                if (Noxau == 1)
-                {
-                    List<Customer> lstCus = ctx.Customers.Where(p => p.type == 13).ToList();
-                    foreach (Customer p in lstCus)
-                    {
-                        if (p.NgayNo >= 3 + Int32.Parse(p.DayBonus.ToString()))
-                        {
-                            lsttrave.Add(p);
-                        }
-                    }
-                }
-
-                if (hetno == 1)
-                {
-                    List<Customer> lstCus = ctx.Customers.Where(p => p.type == 13).ToList();
-                    foreach (Customer p in lstCus)
-                    {
-                        int day = 0;
-                        if (Int32.Parse(p.Price.ToString()) == 0)
-                        {
-                            day = 0;
-                        }
-                        else
-                            day = Int32.Parse(p.Loan.ToString()) / Int32.Parse(p.Price.ToString());
-
-                        if (p.DayPaids == day || p.Description == "End")
-                        {
-                            lsttrave.Add(p);
-                        }
-                    }
-                }
-
-                int count = lsttrave.Count();
-                int nPages = count / pageSz + (count % pageSz > 0 ? 1 : 0);
-                List<Customer> lsttrave1 = lsttrave.OrderBy(p => p.CodeSort)
-                    .Skip((page - 1) * pageSz)
-                     .Take(pageSz).ToList();
-
-                ViewBag.PageCount = nPages;
-                ViewBag.CurPage = page;
-                ViewBag.Code = Code;
-                ViewBag.Name = Name;
-                ViewBag.Phone = Phone;
-                ViewBag.Noxau = Noxau;
-                ViewBag.hetno = hetno;
-                ViewBag.Address = Address;
-
-                foreach (Customer cs in lsttrave1)
-                {
-                    cs.NgayNo = 0;
-                    int count1 = 0;
-                    int countMax = 0;
-
-                    DateTime EndDate = DateTime.Now;
-
-                    List<Loan> t = ctx.Loans.Where(p => p.IDCus == cs.Code).OrderBy(p => p.Date).ToList();
-
-                    Loan t1 = new Loan();
-
-                    if (t.Count != 0)
-                    {
-                        t1 = t.First();
-                    }
-
-                    DateTime StartDate = t1.Date;
-
-                    List<Loan> query = t.Where(p => p.Date >= StartDate && p.Date <= EndDate).ToList();
-
-                    foreach (Loan temp in query)
-                    {
-                        if (temp.Status == 0)
-                        {
-                            count1++;
-                            countMax = count1;
-                        }
-                        else
-                        {
-                            count1 = 0;
-                        }
-                    }
-
-                    cs.NgayNo = countMax;
-                    ctx.SaveChanges();
-                }
-
-                return View(lsttrave1);
-            }
-        }
-
-        public ActionResult SearchXE2(string Code, string Name, string Phone, string Address, int? Noxau, int? hetno, int page = 1)
-        {
-            int pageSz = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
-            List<Loan> lstLoan = new List<Loan>();
-
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                ctx.Configuration.ValidateOnSaveEnabled = false;
-                var list = ctx.Customers.Where(p => p.type == 12).ToList();
-                List<Customer> lsttrave = new List<Customer>();
-
-                if (!string.IsNullOrEmpty(Code))
-                {
-                    lsttrave = list.Where(p => p.Code == Code).ToList();
-                }
-                if (!string.IsNullOrEmpty(Name))
-                {
-                    lsttrave = list.Where(p => p.Name.Contains(Name)).ToList();
-                }
-                if (!string.IsNullOrEmpty(Phone))
-                {
-                    lsttrave = list.Where(p => p.Phone.Contains(Phone)).ToList();
-                }
-                if (Noxau == 1)
-                {
-                    List<Customer> lstCus = ctx.Customers.Where(p => p.type == 12).ToList();
-                    foreach (Customer p in lstCus)
-                    {
-                        if (p.NgayNo >= 3 + Int32.Parse(p.DayBonus.ToString()))
-                        {
-                            lsttrave.Add(p);
-                        }
-                    }
-                }
-
-                if (hetno == 1)
-                {
-                    List<Customer> lstCus = ctx.Customers.Where(p => p.type == 13).ToList();
-                    foreach (Customer p in lstCus)
-                    {
-                        int day = 0;
-                        if (Int32.Parse(p.Price.ToString()) == 0)
-                        {
-                            day = 0;
-                        }
-                        else
-                            day = Int32.Parse(p.Loan.ToString()) / Int32.Parse(p.Price.ToString());
-
-                        if (p.DayPaids == day || p.Description == "End")
-                        {
-                            lsttrave.Add(p);
-                        }
-                    }
-                }
-
-                int count = lsttrave.Count();
-                int nPages = count / pageSz + (count % pageSz > 0 ? 1 : 0);
-                List<Customer> lsttrave1 = lsttrave.OrderBy(p => p.CodeSort)
-                    .Skip((page - 1) * pageSz)
-                     .Take(pageSz).ToList();
-
-                ViewBag.PageCount = nPages;
-                ViewBag.CurPage = page;
-                ViewBag.Code = Code;
-                ViewBag.Name = Name;
-                ViewBag.Phone = Phone;
-                ViewBag.Noxau = Noxau;
-                ViewBag.hetno = hetno;
-                ViewBag.Address = Address;
-
-                foreach (Customer cs in lsttrave1)
-                {
-                    cs.NgayNo = 0;
-                    int count1 = 0;
-                    int countMax = 0;
-
-                    DateTime EndDate = DateTime.Now;
-
-                    List<Loan> t = ctx.Loans.Where(p => p.IDCus == cs.Code).OrderBy(p => p.Date).ToList();
-
-                    Loan t1 = new Loan();
-
-                    if (t.Count != 0)
-                    {
-                        t1 = t.First();
-                    }
-
-                    DateTime StartDate = t1.Date;
-
-                    List<Loan> query = t.Where(p => p.Date >= StartDate && p.Date <= EndDate).ToList();
-
-                    foreach (Loan temp in query)
-                    {
-                        if (temp.Status == 0)
-                        {
-                            count1++;
-                            countMax = count1;
-                        }
-                        else
-                        {
-                            count1 = 0;
-                        }
-                    }
-
-                    cs.NgayNo = countMax;
-                    ctx.SaveChanges();
-                }
-
-                return View(lsttrave1);
-            }
-        }
 
         #endregion Search
 
@@ -3396,9 +3176,12 @@ namespace CamDoAnhTu.Controllers
 
         #region AddCustomer
 
-        public ActionResult AddCustomer()
+        public ActionResult AddCustomer(int type)
         {
-            return View();
+            Customer model = new Customer();
+            model.type = type;
+
+            return View(model);
         }
 
         [HttpPost]
@@ -4017,116 +3800,11 @@ namespace CamDoAnhTu.Controllers
             return RedirectToAction("LoadCustomerXE2", "Home");
         }
 
-        public ActionResult AddCustomerXE1()
+        public ActionResult AddCustomerXE1(int type)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddCustomerXE1(Customer model, HttpPostedFileBase fuMain)
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                ctx.Configuration.ValidateOnSaveEnabled = false;
-                if (model.DayBonus == null)
-                {
-                    model.DayBonus = 0;
-                }
-                model.DayPaids = 0;
-                model.AmountPaid = 0;
-                model.RemainingAmount = 0;
-                model.type = 13;
-
-                ctx.Customers.Add(model);
-                ctx.SaveChanges();
-
-                int day = Int32.Parse(model.Loan.ToString()) / Int32.Parse(model.Price.ToString());
-
-                for (int i = 1; i <= day; i++)
-                {
-                    Loan temp = new Loan();
-                    temp.Date = model.StartDate.AddDays(i);
-                    temp.IDCus = model.Code;
-                    temp.Status = 0;
-                    ctx.Loans.Add(temp);
-                    ctx.SaveChanges();
-                }
-            }
-
-            if (fuMain != null && fuMain.ContentLength > 0)
-            {
-                string spDirPath = Server.MapPath("~/image");
-                string targetDirPath = Path.Combine(spDirPath, model.Code.ToString());
-                Directory.CreateDirectory(targetDirPath);
-
-                string mainFileName = Path.Combine(targetDirPath, "main.jpg");
-                fuMain.SaveAs(mainFileName);
-            }
-            return RedirectToAction("LoadCustomerXE1", "Home");
-        }
-
-        public ActionResult AddCustomerXE2()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddCustomerXE2(Customer model, HttpPostedFileBase fuMain)
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                List<Loan> lstLoan = new List<Loan>();
-                ctx.Configuration.ValidateOnSaveEnabled = false;
-                if (model.DayBonus == null)
-                {
-                    model.DayBonus = 0;
-                }
-                model.DayPaids = 0;
-                model.AmountPaid = 0;
-                model.RemainingAmount = 0;
-                model.type = 12;
-
-
-                ctx.Customers.Add(model);
-
-                int day = model.songayno == 0 ? 0 : (int)model.songayno;
-                DateTime k = model.StartDate;
-
-                for (int i = 1; i <= 60; i++)
-                {
-                    Loan temp = new Loan();
-                    temp.Date = k.AddDays(day);
-                    temp.IDCus = model.Code;
-                    temp.Status = 0;
-                    ctx.Loans.Add(temp);
-
-                    k = temp.Date;
-                    lstLoan.Add(temp);
-
-                    ctx.SaveChanges();
-                }
-                ViewData["Loans"] = lstLoan;
-
-
-                ctx.SaveChanges();
-
-            }
-
-            if (fuMain != null && fuMain.ContentLength > 0)
-            {
-                string spDirPath = Server.MapPath("~/image");
-                string targetDirPath = Path.Combine(spDirPath, model.Code.ToString());
-                Directory.CreateDirectory(targetDirPath);
-
-                string mainFileName = Path.Combine(targetDirPath, "main.jpg");
-                fuMain.SaveAs(mainFileName);
-            }
-            return RedirectToAction("LoadCustomerXE2", "Home");
-        }
-
-        public ActionResult AddCustomerXE1()
-        {
-            return View();
+            Customer cs = new Customer();
+            cs.type = type;
+            return View(cs);
         }
 
         [HttpPost]
