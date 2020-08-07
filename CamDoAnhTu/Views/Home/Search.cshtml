@@ -318,7 +318,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductsModal"><i class="fa fa-plus"></i>  Thêm</button>*@
-                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home")" role="button">
+                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home", new {type = type })" role="button">
                         <i class="fa fa-home"></i>Trang chủ
                     </a>
                     <a class="btn btn-success" href="@Url.Action("Refresh","Home")" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
@@ -433,7 +433,7 @@ else
             <div class="panel panel-default">
                 <div class="panel-heading">
                     @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductsModal"><i class="fa fa-plus"></i>  Thêm</button>*@
-                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home")" role="button">
+                    <a class="btn btn-success" href="@Url.Action("LoadCustomer","Home", new {type = type })" role="button">
                         <i class="fa fa-home"></i>Trang chủ
                     </a>
                     <a class="btn btn-success" href="@Url.Action("Refresh","Home")" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
