@@ -567,4 +567,3 @@ E:\CamdoThienTrang\CamDoAnhTu\obj\Debug\CamDoAnhTu.csproj.CoreCompileInputs.cach
 E:\CamdoThienTrang\CamDoAnhTu\obj\Debug\CamDoAnhTu.csproj.CopyComplete
 E:\CamdoThienTrang\CamDoAnhTu\obj\Debug\CamDoAnhTu.dll
 E:\CamdoThienTrang\CamDoAnhTu\obj\Debug\CamDoAnhTu.pdb
-E:\CamdoThienTrang\CamDoAnhTu\obj\Debug\CamDoAnhTu.csprojAssemblyReference.cache

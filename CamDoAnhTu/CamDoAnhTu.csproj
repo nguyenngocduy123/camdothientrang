@@ -1351,12 +1351,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Home\AddCustomerAM.cshtml" />
-    <Content Include="Views\Home\AddCustomerAN.cshtml" />
-    <Content Include="Views\Home\AddCustomerAT.cshtml" />
-    <Content Include="Views\Home\AddCustomerAX.cshtml" />
-    <Content Include="Views\Home\AddCustomerXE1.cshtml" />
-    <Content Include="Views\Home\AddCustomerXE2.cshtml" />
+    <Content Include="Views\XE1\AddCustomerXE1.cshtml" />
     <Content Include="Views\Home\AM.cshtml" />
     <Content Include="Views\Home\AN.cshtml" />
     <Content Include="Views\Home\AT.cshtml" />
@@ -1368,25 +1363,18 @@
     <Content Include="Views\Home\LoadCustomerAN.cshtml" />
     <Content Include="Views\Home\LoadCustomerAT.cshtml" />
     <Content Include="Views\Home\LoadCustomerAX.cshtml" />
-    <Content Include="Views\Home\LoadCustomerXE1.cshtml" />
+    <Content Include="Views\XE1\LoadCustomerXE1.cshtml" />
     <Content Include="Views\Home\LoadCustomerXE2.cshtml" />
     <Content Include="Views\Home\Management.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\SearchAM.cshtml" />
-    <Content Include="Views\Home\SearchAN.cshtml" />
-    <Content Include="Views\Home\SearchAT.cshtml" />
-    <Content Include="Views\Home\SearchAX.cshtml" />
-    <Content Include="Views\Home\SearchXE3.cshtml" />
-    <Content Include="Views\Home\SearchXE1.cshtml" />
-    <Content Include="Views\Home\SearchXE4.cshtml" />
-    <Content Include="Views\Home\SearchXE2.cshtml" />
+    <Content Include="Views\XE1\SearchXE1.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
     <Content Include="Views\Home\UpdateAN.cshtml" />
     <Content Include="Views\Home\UpdateAT.cshtml" />
     <Content Include="Views\Home\UpdateAX.cshtml" />
-    <Content Include="Views\Home\UpdateXE1.cshtml" />
+    <Content Include="Views\XE1\UpdateXE1.cshtml" />
     <Content Include="Views\Home\UpdateXE2.cshtml" />
-    <Content Include="Views\Home\XE1.cshtml" />
+    <Content Include="Views\XE1\XE1.cshtml" />
     <Content Include="Views\Home\XE2.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1411,7 +1399,6 @@
     <Folder Include="Assets\css\fonts\" />
     <Folder Include="image\" />
     <Folder Include="picture\" />
-    <Folder Include="Views\XE1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -93,10 +93,7 @@
                 Address: {
                     required: true
                 },
-                Price: {
-                    required: true,
-                    number: true
-                },
+                
                 Loan: {
                     required: true,
                     number: true
@@ -122,10 +119,7 @@
                 Address: {
                     required: 'Chưa nhập địa chỉ'
                 },
-                Price: {
-                    required: 'Chưa nhập số tiền phải trả trong 1 ngày',
-                    number: 'Phải là số'
-                },
+                
                 Loan: {
                     required: 'Chưa nhập tổng nợ',
                     number: 'Phải là số'
@@ -183,6 +177,7 @@
             </div>
         </div>
     </div>
+    @Html.HiddenFor(m => m.type, new { @value = @Model.type })
     <div class="form-group">
         <label class="col-sm-2 control-label">Hình ảnh:</label>
         <input type="file" data-filename-placement="inside" id="fuMain" class="file" name="fuMain" />
@@ -240,7 +235,7 @@
             <button type="submit" class="btn btn-danger">
                 <i class="fa fa-check"></i>&nbsp;Lưu
             </button>
-            <a class="btn btn-success" href="@Url.Action("LoadCustomerAT","Home")" role="button">
+            <a class="btn btn-success" href="@Url.Action("LoadCustomerXE1","XE1",new {type=@Model.type})" role="button">
                 <i class="fa fa-mail-reply"></i>Trang khách hàng
             </a>
         </div>
