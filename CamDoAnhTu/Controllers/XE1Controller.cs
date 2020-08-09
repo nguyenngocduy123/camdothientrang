@@ -49,12 +49,12 @@ namespace CamDoAnhTu.Controllers
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 ctx.Configuration.ValidateOnSaveEnabled = false;
-                var query1 = ctx.Customers.Where(p => p.type == 12).ToList();
+                var query1 = ctx.Customers.Where(p => p.type == type).ToList();
                 int count1 = query1.Count();
                 int nPages = count1 / pageSz + (count1 % pageSz > 0 ? 1 : 0);
 
-                List<Customer> list1 = ctx.Customers.Where(p => p.type == 12).ToList();
-                List<Customer> list2 = ctx.Customers.Where(p => p.type == 12 && p.CodeSort == null).ToList();
+                List<Customer> list1 = ctx.Customers.Where(p => p.type == type).ToList();
+                List<Customer> list2 = ctx.Customers.Where(p => p.type == type && p.CodeSort == null).ToList();
 
                 foreach (Customer model in list2)
                 {
@@ -165,9 +165,6 @@ namespace CamDoAnhTu.Controllers
                 model.DayPaids = 0;
                 model.AmountPaid = 0;
                 model.RemainingAmount = 0;
-                model.type = 8;
-
-
                 ctx.Customers.Add(model);
 
                 int day = model.songayno == 0 ? 0 : (int)model.songayno;
@@ -254,7 +251,7 @@ namespace CamDoAnhTu.Controllers
                 if (pro.StartDate != model.StartDate)
                 {
                     pro.StartDate = model.StartDate;
-                    int t = Int32.Parse(model.Loan.ToString()) / Int32.Parse(model.Price.ToString());
+                    
                     List<Loan> l = ctx.Loans.Where(p => p.IDCus == model.Code).ToList();
 
                     foreach (Loan temp in l)
@@ -412,6 +409,83 @@ namespace CamDoAnhTu.Controllers
 
                 return View(lsttrave1);
             }
+        }
+
+        public ActionResult TimKiemNoKhachHangEvenXE1()
+        {
+            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
+            {
+                int result;
+                List<Customer> lst = ctx.Customers.Where(p => p.type == 13).ToList();
+                List<Customer> lst1 = new List<Customer>();
+                foreach (var cus in lst)
+                {
+                    string t = cus.Code[cus.Code.Length - 1].ToString();
+                    if (int.TryParse(t, out result))
+                    {
+                        int id = Int32.Parse(t);
+                        if (id % 2 == 0 && CheckHetNo(cus) == false)
+                        {
+                            lst1.Add(cus);
+                        }
+                    }
+                    else
+                    {
+                        // Not a number, do something else with it.
+                    }
+                }
+                return View(lst1);
+            }
+        }
+
+        public ActionResult TimKiemNoKhachHangOddXE1()
+        {
+            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
+            {
+                int result;
+                List<Customer> lst = ctx.Customers.Where(p => p.type == 13).ToList();
+                List<Customer> lst1 = new List<Customer>();
+                foreach (var cus in lst)
+                {
+                    string t = cus.Code[cus.Code.Length - 1].ToString();
+                    if (int.TryParse(t, out result))
+                    {
+                        int id = Int32.Parse(t);
+                        if (id % 2 == 1 && CheckHetNo(cus) == false)
+                        {
+                            lst1.Add(cus);
+                        }
+                    }
+                    else
+                    {
+                        // Not a number, do something else with it.
+                    }
+                }
+                return View(lst1);
+            }
+        }
+
+        public bool CheckHetNo(Customer cs)
+        {
+            bool kq = false;
+            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
+            {
+                List<Customer> lstCus = ctx.Customers.ToList();
+
+                int day = 0;
+                if (cs.Price == null || Int32.Parse(cs.Price.ToString()) == 0)
+                {
+                    day = 0;
+                }
+                else
+                    day = Int32.Parse(cs.Loan.ToString()) / Int32.Parse(cs.Price.ToString());
+
+                if (cs.DayPaids == day || cs.Description == "End")
+                {
+                    kq = true;
+                }
+            }
+            return kq;
         }
     }
 }
