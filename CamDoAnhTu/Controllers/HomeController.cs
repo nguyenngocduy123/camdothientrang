@@ -1014,12 +1014,12 @@ namespace CamDoAnhTu.Controllers
 
         #region Tim kiem chan le
 
-        public ActionResult TimKiemNoKhachHang()
+        public ActionResult TimKiemNoKhachHang(int type)
         {
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 1).ToList();
+                List<Customer> lst = ctx.Customers.Where(p => p.type == type).ToList();
                 List<Customer> lst1 = new List<Customer>();
                 foreach (var cus in lst)
                 {
@@ -1037,16 +1037,17 @@ namespace CamDoAnhTu.Controllers
                         // Not a number, do something else with it.
                     }
                 }
+                ViewBag.type = type;
                 return View(lst1);
             }
         }
 
-        public ActionResult TimKiemNoKhachHang1()
+        public ActionResult TimKiemNoKhachHang1(int type)
         {
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 1).ToList();
+                List<Customer> lst = ctx.Customers.Where(p => p.type == type).ToList();
                 List<Customer> lst1 = new List<Customer>();
                 foreach (var cus in lst)
                 {
@@ -1064,225 +1065,10 @@ namespace CamDoAnhTu.Controllers
                         // Not a number, do something else with it.
                     }
                 }
+                ViewBag.type = type;
                 return View(lst1);
             }
-        }
-
-        public ActionResult TimKiemNoKhachHangEvenAT()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 2).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 0 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangOddAT()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 2).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 1 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangEvenAL()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 3).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 0 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangOddAL()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 3).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 1 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangEvenAM()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 4).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 0 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangOddAM()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 4).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 1 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangEvenAN()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 5).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 0 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
-
-        public ActionResult TimKiemNoKhachHangOddAN()
-        {
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-                int result;
-                List<Customer> lst = ctx.Customers.Where(p => p.type == 5).ToList();
-                List<Customer> lst1 = new List<Customer>();
-                foreach (var cus in lst)
-                {
-                    string t = cus.Code[cus.Code.Length - 1].ToString();
-                    if (int.TryParse(t, out result))
-                    {
-                        int id = Int32.Parse(t);
-                        if (id % 2 == 1 && CheckHetNo(cus) == false)
-                        {
-                            lst1.Add(cus);
-                        }
-                    }
-                    else
-                    {
-                        // Not a number, do something else with it.
-                    }
-                }
-                return View(lst1);
-            }
-        }
+        }        
 
         public ActionResult TimKiemNoKhachHangEvenAI()
         {

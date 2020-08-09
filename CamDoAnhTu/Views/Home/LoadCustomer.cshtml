@@ -1,7 +1,5 @@
 ﻿@using CamDoAnhTu.Models;
-@*@model PagedList.IPagedList<Customer>
-*@
-@*@using PagedList.Mvc;*@
+
 
 @model List<Customer>
 @{
@@ -355,7 +353,7 @@ listItems = new List<SelectListItem>
                         <i class="fa fa-home"></i>Trang chủ
                     </a>
 
-                    <a class="btn btn-success" href="@Url.Action("Refresh","Home")" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
+                    <a class="btn btn-success" href="@Url.Action("Refresh","Home", new {type = type })" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
                         <i class="fa fa-refresh"></i>Cập nhập
                     </a>
 
@@ -365,10 +363,10 @@ listItems = new List<SelectListItem>
                             <i class="fa fa-plus"></i>&nbsp;Thêm khách hàng
                         </a>
                     }
-                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home", new {type = type } )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày chẵn
                     </a>
-                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home", new {type = type } )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày lẻ
                     </a>
                 </div>
@@ -444,7 +442,7 @@ else
                         <i class="fa fa-home"></i>Trang góp
                     </a>
 
-                    <a class="btn btn-success" href="@Url.Action("Refresh","Home")" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
+                    <a class="btn btn-success" href="@Url.Action("Refresh","Home", new {type = type })" role="button" onclick="return confirm('Bạn có thật sự muốn refresh ?')">
                         <i class="fa fa-refresh"></i>Cập nhập
                     </a>
 
@@ -454,10 +452,10 @@ else
                             <i class="fa fa-plus"></i>&nbsp;Thêm khách hàng
                         </a>
                     }
-                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangEven", "Home", new {type = type } )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày chẵn
                     </a>
-                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home" )" class="btn btn-dropbox">
+                    <a href="@Url.Action("TimKiemNoKhachHangOdd", "Home", new {type = type } )" class="btn btn-dropbox">
                         <i class="fa fa-search"></i>&nbsp;Tìm khách hàng nợ ngày lẻ
                     </a>
                 </div>

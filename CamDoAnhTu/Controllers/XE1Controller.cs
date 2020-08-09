@@ -49,12 +49,12 @@ namespace CamDoAnhTu.Controllers
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
                 ctx.Configuration.ValidateOnSaveEnabled = false;
-                var query1 = ctx.Customers.Where(p => p.type == type).ToList();
+                var query1 = ctx.Customers.Where(p => p.type == 12).ToList();
                 int count1 = query1.Count();
                 int nPages = count1 / pageSz + (count1 % pageSz > 0 ? 1 : 0);
 
-                List<Customer> list1 = ctx.Customers.Where(p => p.type == 13).ToList();
-                List<Customer> list2 = ctx.Customers.Where(p => p.type == 13 && p.CodeSort == null).ToList();
+                List<Customer> list1 = ctx.Customers.Where(p => p.type == 12).ToList();
+                List<Customer> list2 = ctx.Customers.Where(p => p.type == 12 && p.CodeSort == null).ToList();
 
                 foreach (Customer model in list2)
                 {
@@ -156,6 +156,7 @@ namespace CamDoAnhTu.Controllers
         {
             using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
             {
+                List<Loan> lstLoan = new List<Loan>();
                 ctx.Configuration.ValidateOnSaveEnabled = false;
                 if (model.DayBonus == null)
                 {
@@ -164,22 +165,32 @@ namespace CamDoAnhTu.Controllers
                 model.DayPaids = 0;
                 model.AmountPaid = 0;
                 model.RemainingAmount = 0;
-                model.type = 13;
+                model.type = 8;
+
 
                 ctx.Customers.Add(model);
-                ctx.SaveChanges();
 
-                int day = Int32.Parse(model.Loan.ToString()) / Int32.Parse(model.Price.ToString());
+                int day = model.songayno == 0 ? 0 : (int)model.songayno;
+                DateTime k = model.StartDate;
 
-                for (int i = 1; i <= day; i++)
+                for (int i = 1; i <= 60; i++)
                 {
                     Loan temp = new Loan();
-                    temp.Date = model.StartDate.AddDays(i);
+                    temp.Date = k.AddDays(day);
                     temp.IDCus = model.Code;
                     temp.Status = 0;
                     ctx.Loans.Add(temp);
+
+                    k = temp.Date;
+                    lstLoan.Add(temp);
+
                     ctx.SaveChanges();
                 }
+                ViewData["Loans"] = lstLoan;
+
+
+                ctx.SaveChanges();
+
             }
 
             if (fuMain != null && fuMain.ContentLength > 0)
@@ -191,7 +202,7 @@ namespace CamDoAnhTu.Controllers
                 string mainFileName = Path.Combine(targetDirPath, "main.jpg");
                 fuMain.SaveAs(mainFileName);
             }
-            return RedirectToAction("LoadCustomerXE1", "XE1", new { type = model.type});
+            return RedirectToAction("LoadCustomerXE1", "XE1", new { type = model.type });
         }
 
         public ActionResult UpdateXE1(string id)
@@ -262,6 +273,17 @@ namespace CamDoAnhTu.Controllers
                 {
                     pro = ctx.Customers.Where(p => p.Code == pro.Code).FirstOrDefault();
 
+                    int day = Int32.Parse(pro.Loan.ToString()) / Int32.Parse(pro.Price.ToString());
+
+                    for (int s = 1; s <= day; s++)
+                    {
+                        Loan temp = new Loan();
+                        temp.Date = pro.StartDate.AddDays(s);
+                        temp.IDCus = pro.Code;
+                        temp.Status = 0;
+                        ctx.Loans.Add(temp);
+                        ctx.SaveChanges();
+                    }
                     ctx.SaveChanges();
                 }
             }

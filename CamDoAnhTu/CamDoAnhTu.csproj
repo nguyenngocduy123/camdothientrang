@@ -1369,8 +1369,6 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\XE1\SearchXE1.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
-    <Content Include="Views\Home\UpdateAN.cshtml" />
-    <Content Include="Views\Home\UpdateAT.cshtml" />
     <Content Include="Views\Home\UpdateAX.cshtml" />
     <Content Include="Views\XE1\UpdateXE1.cshtml" />
     <Content Include="Views\Home\UpdateXE2.cshtml" />
@@ -1390,7 +1388,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ChangePassWord.cshtml" />
-    <Content Include="Views\Home\UpdateAM.cshtml" />
     <Content Include="Views\History\History.cshtml" />
     <Content Include="Views\Home\AddCustomer.cshtml" />
   </ItemGroup>

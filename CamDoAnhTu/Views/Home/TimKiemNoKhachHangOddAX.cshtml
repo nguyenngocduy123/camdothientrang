@@ -7,6 +7,7 @@
 
 @{
     int day;
+    int type = (int)ViewBag.type;
 }
 
 @section css{
@@ -68,7 +69,7 @@
 
 }
 
-<a class="btn btn-success" href="@Url.Action("LoadCustomerAX","Home")" role="button" style="margin-top:15px">
+<a class="btn btn-success" href="@Url.Action("LoadCustomerXE1","Home", new { type = type })" role="button" style="margin-top:15px">
     <i class="fa fa-mail-reply"></i>Trang khách hàng
 </a>
 <br />
