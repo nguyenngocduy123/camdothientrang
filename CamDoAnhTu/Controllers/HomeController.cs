@@ -698,7 +698,7 @@ namespace CamDoAnhTu.Controllers
                         t = 1;
                         csCustomer.DayPaids = songaydatra;
 
-                        WriteHistory(csCustomer, 0, loanid);
+                        //WriteHistory(csCustomer, 0, loanid);
                     }
                     else
                     {
@@ -711,7 +711,7 @@ namespace CamDoAnhTu.Controllers
                         t = 0;
                         csCustomer.DayPaids = songaydatra;
 
-                        WriteHistory(csCustomer, 0, loanid);
+                        //WriteHistory(csCustomer, 0, loanid);
                     }
 
                     ct = csCustomer.Price;
@@ -753,7 +753,7 @@ namespace CamDoAnhTu.Controllers
                             t = 1;
                             csCustomer.DayPaids = songaydatra;
 
-                            WriteHistory(csCustomer, 0, loanid);
+                            //WriteHistory(csCustomer, 0, loanid);
                         }
                         else
                         {
@@ -766,7 +766,7 @@ namespace CamDoAnhTu.Controllers
                             t = 0;
                             csCustomer.DayPaids = songaydatra;
 
-                            WriteHistory(csCustomer, 0, loanid);
+                            //WriteHistory(csCustomer, 0, loanid);
                         }
                         ct = csCustomer.Price;
                         amount = csCustomer.AmountPaid ?? 0;
@@ -814,13 +814,13 @@ namespace CamDoAnhTu.Controllers
                     {
                         csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                         t = 1;
-                        WriteHistory(csCustomer, 0, loanid);
+                        //WriteHistory(csCustomer, 0, loanid);
                     }
                     else
                     {
                         csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                         t = 0;
-                        WriteHistory(csCustomer, 0, loanid);
+                        //WriteHistory(csCustomer, 0, loanid);
                     }
 
                     ctx.SaveChanges();
@@ -850,13 +850,13 @@ namespace CamDoAnhTu.Controllers
                         {
                             csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                             t = 1;
-                            WriteHistory(csCustomer, 0, loanid);
+                            //WriteHistory(csCustomer, 0, loanid);
                         }
                         else
                         {
                             csCustomer = ctx.Customers.Where(p => p.Code == item.IDCus).FirstOrDefault();
                             t = 0;
-                            WriteHistory(csCustomer, 0, loanid);
+                            //WriteHistory(csCustomer, 0, loanid);
                         }
 
                         loanid++;
@@ -1270,95 +1270,94 @@ namespace CamDoAnhTu.Controllers
             return kq;
         }
 
-        public void WriteHistory(Customer p, int money, int loanid)
-        {
-            StringBuilder str = new StringBuilder();
-            int type = 0;
-
-            
-
-            using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
-            {
-
-                if (loanid != -1)
-                {
-                    var checkhs = ctx.histories.Where(s => s.loanid == loanid).FirstOrDefault();
-                    if (checkhs == null)
-                    {
-                        var checkLoan = ctx.Loans.Where(s => s.ID == loanid).FirstOrDefault();
-
-                        if (checkLoan.Status == 1)
-                        {
-                            type = 0;
-                            history hs = new history();
-                            str.Append("Xóa đóng tiền cho ngày: " + timetemp);
-                            hs.CustomerId = p.ID;
-                            hs.CustomerCode = p.Code;
-                            hs.Detail = str.ToString();
-                            hs.Ngaydongtien = DateTime.Now ;
-                            hs.price = money == 0 ? p.Price : money;
-                            hs.status = type;
-                            hs.loanid = loanid;
-                            ctx.histories.Add(hs);
-                        }
-                        else
-                        {
-                            type = 1;
-                            history hs = new history();
-                            str.Append("Đóng tiền cho ngày: " + timetemp);
-                            hs.CustomerId = p.ID;
-                            hs.CustomerCode = p.Code;
-                            hs.Detail = str.ToString();
-                            hs.Ngaydongtien = DateTime.Now;
-                            hs.price = money == 0 ? p.Price : money;
-                            hs.status = type;
-                            hs.loanid = loanid;
-                            ctx.histories.Add(hs);
-                        }
+        //public void WriteHistory(Customer p, int money, int loanid)
+        //{
+        //    StringBuilder str = new StringBuilder();
+        //    int type = 0;
 
 
-                    }
-                    else
-                    {
+        //    using (CamdoAnhTuEntities1 ctx = new CamdoAnhTuEntities1())
+        //    {
 
-                        int oldtype = checkhs.status.Value;
+        //        if (loanid != -1)
+        //        {
+        //            var checkhs = ctx.histories.Where(s => s.loanid == loanid).FirstOrDefault();
+        //            if (checkhs == null)
+        //            {
+        //                var checkLoan = ctx.Loans.Where(s => s.ID == loanid).FirstOrDefault();
 
-                        if (oldtype == 1) // xóa dong tien
-                        {
-                            str.Append("Xóa đóng tiền cho ngày: " + timetemp);
-                            checkhs.Ngaydongtien = DateTime.Now;
-                            type = 0;
-                            checkhs.status = type;
-                            checkhs.Detail = str.ToString();
-                        }
-                        else // đóng tien
-                        {
-                            str.Append("Đóng tiền cho ngày: " + timetemp);
-                            type = 1;
-                            checkhs.Ngaydongtien = DateTime.Now;
-                            checkhs.status = type;
-                            checkhs.Detail = str.ToString();
-                        }
+        //                if (checkLoan.Status == 1)
+        //                {
+        //                    type = 0;
+        //                    history hs = new history();
+        //                    str.Append("Xóa đóng tiền cho ngày: " + timetemp);
+        //                    hs.CustomerId = p.ID;
+        //                    hs.CustomerCode = p.Code;
+        //                    hs.Detail = str.ToString();
+        //                    hs.Ngaydongtien = DateTime.Now ;
+        //                    hs.price = money == 0 ? p.Price : money;
+        //                    hs.status = type;
+        //                    hs.loanid = loanid;
+        //                    ctx.histories.Add(hs);
+        //                }
+        //                else
+        //                {
+        //                    type = 1;
+        //                    history hs = new history();
+        //                    str.Append("Đóng tiền cho ngày: " + timetemp);
+        //                    hs.CustomerId = p.ID;
+        //                    hs.CustomerCode = p.Code;
+        //                    hs.Detail = str.ToString();
+        //                    hs.Ngaydongtien = DateTime.Now;
+        //                    hs.price = money == 0 ? p.Price : money;
+        //                    hs.status = type;
+        //                    hs.loanid = loanid;
+        //                    ctx.histories.Add(hs);
+        //                }
 
-                    }
-                }
-                else if (loanid == -1)
-                {
-                    history hs = new history();
-                    str.Append("Kết thúc dây nợ ngày : " + timetemp);
-                    hs.CustomerId = p.ID;
-                    hs.Detail = str.ToString();
-                    hs.CustomerCode = p.Code;
-                    hs.Ngaydongtien = DateTime.Now;
-                    hs.price = money == 0 ? p.Price : money;
-                    hs.status = 0;
-                    hs.loanid = -1;
-                    ctx.histories.Add(hs);
-                }
 
-                ctx.SaveChanges();
-            }
-        }
+        //            }
+        //            else
+        //            {
+
+        //                int oldtype = checkhs.status.Value;
+
+        //                if (oldtype == 1) // xóa dong tien
+        //                {
+        //                    str.Append("Xóa đóng tiền cho ngày: " + timetemp);
+        //                    checkhs.Ngaydongtien = DateTime.Now;
+        //                    type = 0;
+        //                    checkhs.status = type;
+        //                    checkhs.Detail = str.ToString();
+        //                }
+        //                else // đóng tien
+        //                {
+        //                    str.Append("Đóng tiền cho ngày: " + timetemp);
+        //                    type = 1;
+        //                    checkhs.Ngaydongtien = DateTime.Now;
+        //                    checkhs.status = type;
+        //                    checkhs.Detail = str.ToString();
+        //                }
+
+        //            }
+        //        }
+        //        else if (loanid == -1)
+        //        {
+        //            history hs = new history();
+        //            str.Append("Kết thúc dây nợ ngày : " + timetemp);
+        //            hs.CustomerId = p.ID;
+        //            hs.Detail = str.ToString();
+        //            hs.CustomerCode = p.Code;
+        //            hs.Ngaydongtien = DateTime.Now;
+        //            hs.price = money == 0 ? p.Price : money;
+        //            hs.status = 0;
+        //            hs.loanid = -1;
+        //            ctx.histories.Add(hs);
+        //        }
+
+        //        ctx.SaveChanges();
+        //    }
+        //}
 
         #endregion Global
     }
